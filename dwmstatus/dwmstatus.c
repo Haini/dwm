@@ -243,7 +243,7 @@ main(void)
 		return 1;
 	}
 
-	for (;;sleep(1)) {
+	for (;;sleep(2)) {
 		avgs = loadavg();
 		tmutc = mktimes("%H:%M", tzberlin);
         ram = get_ram();
