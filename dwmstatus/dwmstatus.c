@@ -2,17 +2,33 @@
 #define _BSD_SOURCE
 #include <unistd.h>
 #include <stdio.h>
+
+#include <alsa/asoundlib.h>
+#ifndef _STRUCT_TIMESPEC
+#	define _STRUCT_TIMESPEC
+#endif
+#ifndef _STRUCT_TIMEVAL
+#	define _STRUCT_TIMEVAL
+#endif
+
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 #include <strings.h>
-#include <sys/time.h>
-#include <time.h>
+
+
+
+
+//#include <sys/time.h>
+//#include <time.h> 
+
+
+
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <inttypes.h>
 
-#include <alsa/asoundlib.h>
+
 #include <alsa/control.h>
 
 #include <errno.h>
@@ -229,7 +245,7 @@ main(void)
 
 	for (;;sleep(1)) {
 		avgs = loadavg();
-		tmutc = mktimes("%H:%M", tzutc);
+		tmutc = mktimes("%H:%M", tzberlin);
         ram = get_ram();
         battery = get_battery();
         vol = get_volume();

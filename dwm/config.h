@@ -23,6 +23,15 @@ static const char colors[NUMCOLORS][MAXCOLORS][9] = {
     { "#202020", "#00b7eb", "#303030" },  /* x09 = cyan      */
 };
 
+/* Volume Keys for consti-002 */
+static const char *upvol[] = { "amixer", "-D", "pulse", "set", "Master", "3%+", NULL };
+static const char *downvol[] = { "amixer", "-D", "pulse", "set", "Master", "3%-", NULL };
+static const char *mutevol[] = { "amixer", "-D", "pulse", "set", "Master", "toggle", NULL };
+static const char *slock[] = { "slock", NULL };
+static const char *uplight[] = { "xbacklight", "-inc", "5", NULL };
+static const char *downlight[] = { "xbacklight", "-dec", "5", NULL };
+
+/* DWM Stuff */
 static const char dmenufont[] = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
 static const char normbordercolor[] = "#444444";
 static const char normbgcolor[]     = "#222222";
@@ -30,7 +39,7 @@ static const char normfgcolor[]     = "#bbbbbb";
 static const char selbordercolor[]  = "#005577";
 static const char selbgcolor[]      = "#005577";
 static const char selfgcolor[]      = "#eeeeee";
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
@@ -53,7 +62,7 @@ static const Rule rules[] = {
 /* layout(s) */
 static const float mfact      = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
+static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -75,14 +84,20 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "wbar", NULL };
+static const char *dmenucmd[] = { "dmenu_run", NULL };
+static const char *termcmd[]  = { "rxvt-unicode", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
-	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          {.v = slock } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = &dmenucmd[0] } },
 	{ MODKEY|ShiftMask,             XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
+	{ MODKEY,                       XK_F8,     spawn,          {.v = downlight } },
+	{ MODKEY,                       XK_F9,     spawn,          {.v = uplight } },
+	{ MODKEY,                       XK_F5,     spawn,          {.v = downvol } },
+	{ MODKEY,                       XK_F6,     spawn,          {.v = upvol } },
+	{ MODKEY,                       XK_F3,     spawn,          {.v = mutevol } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
