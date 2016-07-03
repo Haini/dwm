@@ -153,14 +153,7 @@ get_ram()
     percent = (used * 100) / total;
   
     return smprintf(" %dMB / %dMB", used, total);
-    
-//    char buf[129];
-
-//    memcpy(buf, (char*) percent, sizeof(percent));
-
-//    return smprintf("%s", buf);
-
-//    return total;
+    return total;
 }
 
 

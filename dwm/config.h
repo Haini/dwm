@@ -30,6 +30,8 @@ static const char *mutevol[] = { "amixer", "-D", "pulse", "set", "Master", "togg
 static const char *slock[] = { "slock", NULL };
 static const char *uplight[] = { "xbacklight", "-inc", "5", NULL };
 static const char *downlight[] = { "xbacklight", "-dec", "5", NULL };
+static const char *termcolor[] = { "xrdb", "/home/consti/.Xresources.light", NULL  };
+
 
 /* DWM Stuff */
 static const char dmenufont[] = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
@@ -98,6 +100,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_F5,     spawn,          {.v = downvol } },
 	{ MODKEY,                       XK_F6,     spawn,          {.v = upvol } },
 	{ MODKEY,                       XK_F3,     spawn,          {.v = mutevol } },
+	{ MODKEY|ShiftMask,             XK_t,      spawn,          {.v = termcolor } },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
